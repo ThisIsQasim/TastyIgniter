@@ -12,7 +12,7 @@ Run with docker compose for automatic database configuration
 Browse to port 8001 of your docker host and setup
 
 
-Alternatively if you don't want to use docker compose you can do it manually
+Alternatively if you don't want to use docker compose you run it manually
 
 build the docker image
 
@@ -24,3 +24,6 @@ Run the docker
     docker run -d -p 80:80 TastyIgniter
     
 Run the setup, connect to db and you're done.
+
+## Credits
+TastyIgniter: https://github.com/tastyigniter/TastyIgniter
