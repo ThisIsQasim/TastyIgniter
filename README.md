@@ -4,6 +4,16 @@ clone the repo
 
     git clone https://github.com/ThisIsQasim/TastyIgniter
 
+Run with docker compose for automatic database configuration
+
+    cd TastyIgniter
+    docker-compose up
+    
+Browse to port 8001 of your docker host and setup
+
+
+Alternatively if you don't want to use docker compose you can do it manually
+
 build the docker image
 
     cd TastyIgniter
