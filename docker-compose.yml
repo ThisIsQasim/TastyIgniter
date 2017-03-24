@@ -1,0 +1,13 @@
+version: '2'
+services:
+ tastyigniter:
+  build: .
+  ports:
+  - "8001:80"
+  links:
+  - mariadb:mysql
+ mariadb:
+  image: mariadb
+  environment:
+   MYSQL_ROOT_PASSWORD: somepassword
+   MYSQL_DATABASE: tastydb
