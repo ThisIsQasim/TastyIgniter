@@ -3,7 +3,7 @@ services:
  app:
   build: .
   ports:
-  - "8001:80"
+  - "32600:80"
   links:
   - db:mysql
  db:
