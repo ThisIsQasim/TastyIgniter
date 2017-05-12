@@ -1,15 +1,31 @@
 version: '2'
+
 services:
+ 
  app:
-  build: .
+  image: thisisqasim/tastyigniter
+  container_name: tasty_app
+  networks:
+    - frontend
+    - backend
   ports:
   - "32600:80"
   links:
   - db:mysql
+
  db:
   image: mariadb
+  container_name: tasty_db
+  networks:
+    - backend
   environment:
    MYSQL_ROOT_PASSWORD: somepassword
    MYSQL_DATABASE: tastydb
    MYSQL_USER: tastyuser
    MYSQL_PASSWORD: tastypass
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
