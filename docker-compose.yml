@@ -2,12 +2,14 @@ version: '2'
 services:
  app:
   build: .
+  container_name: tasty_app
   ports:
   - "8001:80"
   links:
   - db:mysql
  db:
   image: mariadb
+  container_name: tasty_db
   environment:
    MYSQL_ROOT_PASSWORD: somepassword
    MYSQL_DATABASE: tastydb
