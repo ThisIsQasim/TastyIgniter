@@ -1,8 +1,8 @@
 version: '2'
 services:
  app:
-#  image: thisisqasim/tastyigniter
-  build: .
+  image: thisisqasim/tastyigniter
+#  build: .
   container_name: tasty_app
   ports:
   - "8001:80"
