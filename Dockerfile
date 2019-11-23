@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 
 # install the PHP extensions we need
 RUN set -ex; \
@@ -8,14 +8,13 @@ RUN set -ex; \
 		unzip \
 		libcurl4-openssl-dev \
 		libjpeg-dev \
-		libpng12-dev \
+		libpng-dev \
 		libmcrypt-dev \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
-	docker-php-ext-install gd mcrypt mbstring mysqli opcache curl
-# TODO consider removing the *-dev deps and only keeping the necessary lib* packages
+	docker-php-ext-install -j$(nproc) gd mcrypt mbstring pdo pdo_mysql opcache curl exif zip
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -32,15 +31,19 @@ RUN a2enmod rewrite
 
 VOLUME /var/www/html
 
-ENV TASTYIGNITER_VERSION 2.1.1
+ENV TASTYIGNITER_VERSION 3.0.4-beta.16
 
 RUN set -ex; \
-	curl -o tastyigniter.zip -fSL "https://codeload.github.com/tastyigniter/TastyIgniter/zip/${TASTYIGNITER_VERSION}"; \
+	curl -o tastyigniter.zip -fSL "https://codeload.github.com/tastyigniter/TastyIgniter/zip/v${TASTYIGNITER_VERSION}"; \
 	unzip tastyigniter.zip -d /usr/src/; \
 	rm tastyigniter.zip; \
-	mv /usr/src/TastyIgniter-${TASTYIGNITER_VERSION} /usr/src/tastyigniter; \
-	chown -R www-data:www-data /usr/src/tastyigniter
+	mv /usr/src/TastyIgniter-${TASTYIGNITER_VERSION} /usr/src/tastyigniter
 
+RUN cd /usr/src/tastyigniter; \
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php && \
+    php -r "unlink('composer-setup.php');" && \
+    php composer.phar install
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
