@@ -20,6 +20,3 @@ services:
     - MYSQL_DATABASE=tastyigniter
     - MYSQL_USER=tastyigniter
     - MYSQL_PASSWORD=somepassword
-volumes:
-  db_data:
-    driver: local
