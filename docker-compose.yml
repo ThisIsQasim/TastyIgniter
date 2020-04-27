@@ -1,8 +1,7 @@
 version: '2'
 services:
  app:
-#  image: thisisqasim/tastyigniter
-  build: .
+  image: thisisqasim/tastyigniter:3.0.4b20.1
   hostname: tasty
   ports:
     - 8001:80
