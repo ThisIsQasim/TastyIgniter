@@ -4,6 +4,8 @@ services:
 #  image: thisisqasim/tastyigniter
   build: .
   hostname: tasty
+  ports:
+    - 8001:80
   volumes:
     - ./config:/var/www/html/config
   environment:
@@ -20,6 +22,3 @@ services:
     - MYSQL_DATABASE=tastyigniter
     - MYSQL_USER=tastyigniter
     - MYSQL_PASSWORD=somepassword
-volumes:
-  db_data:
-    driver: local
