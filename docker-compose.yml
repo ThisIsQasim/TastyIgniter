@@ -1,23 +1,25 @@
 version: '2'
 services:
- app:
-  image: thisisqasim/tastyigniter:3.0.4b20.1
-  hostname: tasty
-  ports:
-    - 8001:80
-  volumes:
-    - ./config:/var/www/html/config
-  environment:
-    - MYSQL_HOSTNAME=db
-    - MYSQL_DATABASE=tastyigniter
-    - MYSQL_USER=tastyigniter
-    - MYSQL_PASSWORD=somepassword
- db:
-  image: mariadb
-  volumes:
-    - ./db:/var/lib/mysql
-  environment:
-    - MYSQL_RANDOM_ROOT_PASSWORD=yes
-    - MYSQL_DATABASE=tastyigniter
-    - MYSQL_USER=tastyigniter
-    - MYSQL_PASSWORD=somepassword
+  app:
+    image: thisisqasim/tastyigniter:3.0.4b20.1
+    hostname: tasty
+    ports:
+      - 8001:80
+    volumes:
+      - ./config:/var/www/html/config
+    environment:
+      - MYSQL_HOSTNAME=db
+      - MYSQL_DATABASE=tastyigniter
+      - MYSQL_USER=tastyigniter
+      - MYSQL_PASSWORD=somepassword
+    restart: always  
+  db:
+    image: mariadb
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=tastyigniter
+      - MYSQL_USER=tastyigniter
+      - MYSQL_PASSWORD=somepassword
+    restart: always
