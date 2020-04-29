@@ -8,7 +8,7 @@ RUN set -ex; \
 		unzip \
 		libcurl4-openssl-dev \
 		libjpeg-dev \
-		libpng12-dev \
+		libpng-dev \
 		libmcrypt-dev \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
