@@ -11,6 +11,7 @@ services:
   - MYSQL_DATABASE=tastyigniter
   - MYSQL_USER=tastyigniter
   - MYSQL_PASSWORD=somepassword
+  restart: always
  db:
   image: mariadb
   container_name: tasty_db
@@ -21,6 +22,7 @@ services:
   - MYSQL_DATABASE=tastyigniter
   - MYSQL_USER=tastyigniter
   - MYSQL_PASSWORD=somepassword
+  restart: always
 volumes:
   db_data:
     driver: local
