@@ -39,11 +39,8 @@ RUN set -ex; \
 	rm tastyigniter.zip; \
 	mv /usr/src/TastyIgniter-${TASTYIGNITER_VERSION} /usr/src/tastyigniter
 
-RUN cd /usr/src/tastyigniter; \
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-    php composer-setup.php && \
-    php -r "unlink('composer-setup.php');" && \
-    php composer.phar install
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    composer install
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
