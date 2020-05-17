@@ -1,4 +1,5 @@
 # TastyIgniter Docker
+[![Docker Pulls](https://img.shields.io/docker/pulls/thisisqasim/tastyigniter.svg?style=plastic)](https://hub.docker.com/r/thisisqasim/tastyigniter/)
 
 clone the repo
 
