@@ -6,7 +6,7 @@
 
 Run with docker compose for automatic database configuration
 
-    mkdir tastyigniter
+    mkdir tastyigniter && cd tastyigniter
     curl -LO https://github.com/ThisIsQasim/TastyIgniter/raw/master/docker-compose.yml
     docker-compose up -d
     
