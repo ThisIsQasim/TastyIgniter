@@ -1,5 +1,8 @@
 # TastyIgniter Docker
-[![Docker Pulls](https://img.shields.io/docker/pulls/thisisqasim/tastyigniter.svg?style=plastic)](https://hub.docker.com/r/thisisqasim/tastyigniter/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/thisisqasim/tastyigniter)](https://hub.docker.com/r/thisisqasim/tastyigniter/)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/thisisqasim/tastyigniter/latest)
+![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/thisisqasim/tastyigniter)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/thisisqasim/tastyigniter)
 
 Run with docker compose for automatic database configuration
 
