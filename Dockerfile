@@ -1,4 +1,4 @@
-FROM php:7.1-apache-buster
+FROM php:7.0-apache
 
 # install the PHP extensions we need
 RUN set -ex; \
