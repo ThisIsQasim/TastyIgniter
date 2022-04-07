@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.4-apache
 
 # install the PHP extensions we need
 RUN set -ex; \
@@ -6,15 +6,23 @@ RUN set -ex; \
 	apt-get update; \
 	apt-get install -y \
 		unzip \
+		openssl \
 		libcurl4-openssl-dev \
 		libjpeg-dev \
 		libpng-dev \
 		libmcrypt-dev \
+		libxml2-dev \
+		libonig-dev \
+		libzip-dev \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
-	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
-	docker-php-ext-install -j$(nproc) gd mbstring pdo pdo_mysql opcache curl exif zip
+	docker-php-ext-configure gd --with-jpeg=/usr; \
+	docker-php-ext-install -j$(nproc) pdo_mysql curl dom gd mbstring json tokenizer zip exif
+
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -31,7 +39,7 @@ RUN a2enmod rewrite
 
 VOLUME /var/www/html
 
-ENV TASTYIGNITER_VERSION 3.0.4-beta.23.2
+ENV TASTYIGNITER_VERSION 3.4.0
 
 RUN set -ex; \
 	curl -o tastyigniter.zip -fSL "https://codeload.github.com/tastyigniter/TastyIgniter/zip/v${TASTYIGNITER_VERSION}"; \
@@ -39,10 +47,12 @@ RUN set -ex; \
 	rm tastyigniter.zip; \
 	mv /usr/src/TastyIgniter-${TASTYIGNITER_VERSION} /usr/src/tastyigniter
 
+COPY .htaccess /usr/src/tastyigniter/
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     cd /usr/src/tastyigniter && composer install
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["apache2-foreground"]

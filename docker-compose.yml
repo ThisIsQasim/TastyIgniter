@@ -1,20 +1,22 @@
 version: '2'
 services:
   app:
-    image: thisisqasim/tastyigniter:3.0.4b20.1
+    image: thisisqasim/tastyigniter:3.4.0
     hostname: tasty
     ports:
       - 8001:80
-    volumes:
-      - ./config:/var/www/html/config
     environment:
-      - MYSQL_HOSTNAME=db
-      - MYSQL_DATABASE=tastyigniter
-      - MYSQL_USER=tastyigniter
-      - MYSQL_PASSWORD=somepassword
+      - APP_URL=https://tasty.example.com
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_DATABASE=tastyigniter
+      - DB_USERNAME=tastyigniter
+      - DB_PASSWORD=somepassword
+      - CACHE_DRIVER=redis
+      - REDIS_HOST=redis
     restart: always  
   db:
-    image: mariadb
+    image: mariadb:10.7
     volumes:
       - ./db:/var/lib/mysql
     environment:
@@ -22,4 +24,8 @@ services:
       - MYSQL_DATABASE=tastyigniter
       - MYSQL_USER=tastyigniter
       - MYSQL_PASSWORD=somepassword
+    restart: always
+  redis:
+    image: redis:6
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
     restart: always
