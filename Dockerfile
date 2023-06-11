@@ -1,4 +1,5 @@
-FROM php:7.4-apache
+FROM php:8.2-apache
+#7.4-apache
 
 # install the PHP extensions we need
 RUN set -ex; \
@@ -14,11 +15,14 @@ RUN set -ex; \
 		libxml2-dev \
 		libonig-dev \
 		libzip-dev \
+        default-mysql-client \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
 	docker-php-ext-configure gd --with-jpeg=/usr; \
-	docker-php-ext-install -j$(nproc) pdo_mysql curl dom gd mbstring json tokenizer zip exif
+	docker-php-ext-install -j$(nproc) pdo_mysql curl dom gd mbstring zip exif
+# RUN	docker-php-ext-install -j$(nproc) json
+# RUN	docker-php-ext-install -j$(nproc) tokenizer
 
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
@@ -39,7 +43,8 @@ RUN a2enmod rewrite
 
 VOLUME /var/www/html
 
-ENV TASTYIGNITER_VERSION 3.4.0
+ENV TASTYIGNITER_VERSION 3.6.9 
+#3.4.0
 
 RUN set -ex; \
 	curl -o tastyigniter.zip -fSL "https://codeload.github.com/tastyigniter/TastyIgniter/zip/v${TASTYIGNITER_VERSION}"; \
