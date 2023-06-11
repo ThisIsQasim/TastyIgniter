@@ -1,12 +1,14 @@
 version: '2'
 services:
   app:
-    image: thisisqasim/tastyigniter:3.4.0
+    image: local-tastyigniter:3.6.9
+    #thisisqasim/tastyigniter:3.4.0
     hostname: tasty
     ports:
       - 8001:80
     environment:
-      - APP_URL=https://tasty.example.com
+      - APP_URL=https://localhost
+      # https://tasty.example.com
       - DB_CONNECTION=mysql
       - DB_HOST=db
       - DB_DATABASE=tastyigniter
